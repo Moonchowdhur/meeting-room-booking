@@ -104,7 +104,7 @@ const createSlotIntoDB = async (
       ],
     });
 
-    console.log(existingSlots, 'existingSlots');
+    
 
     if (existingSlots.length > 0) {
       throw new appError(
@@ -130,7 +130,7 @@ const createSlotIntoDB = async (
 const getAllSlotFromDB = async (query: Record<string, unknown>) => {
   const { roomId, date } = query;
 
-  let queryObject: Record<string, unknown> = {};
+  const queryObject: Record<string, unknown> = {};
   if (roomId) {
     queryObject.room = roomId;
   }
@@ -138,7 +138,6 @@ const getAllSlotFromDB = async (query: Record<string, unknown>) => {
     queryObject.date = date;
   }
 
-  console.log(queryObject, 'constructed query');
 
   const result = await Slot.find(queryObject).populate('room');
   return result;

@@ -23,7 +23,7 @@ const createBooking = async (
     }
 
     const isRoomDeleted = roomInfo?.isDeleted;
-    console.log(isRoomDeleted, 'isRoomDeleted');
+   
     if (isRoomDeleted) {
       throw new appError(httpStatus.NOT_FOUND, 'Room is deleted!');
     }
@@ -52,7 +52,6 @@ const createBooking = async (
     const pricePerSlot = roomInfo.pricePerSlot;
     const totalAmount = slots.length * pricePerSlot;
 
-    console.log(totalAmount, 'totalAmount');
 
     const booking = await Booking.create(
       [
@@ -100,7 +99,7 @@ const createBooking = async (
       })
       .exec();
 
-    // @ts-ignore
+    //@ts-expect-error :'populatedBooking' is possibly 'null'
     populatedBooking.slots = slotsDetail;
 
     return populatedBooking as TBooking;

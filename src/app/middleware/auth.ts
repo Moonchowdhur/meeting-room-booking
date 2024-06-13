@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import appError from '../errors/appError';
 import httpStatus from 'http-status';
 
 import jwt, { JwtPayload } from 'jsonwebtoken';
@@ -30,7 +29,7 @@ export const auth = (...requiredRole: TUserRole[]) => {
 
     const userData = await User.findOne({ email });
 
-    console.log(userData, 'userData');
+    // console.log(userData, 'userData');
     if (!userData) {
       return res.status(httpStatus.UNAUTHORIZED).json({
         success: false,

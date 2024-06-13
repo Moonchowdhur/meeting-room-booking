@@ -16,7 +16,6 @@ const createBooking = catchAsync(async (req, res) => {
 const getAllBooking = catchAsync(async (req, res) => {
   const result = await BookingServices.getBookingFromDB();
 
-  console.log(result, 're');
 
   if (result.length === 0) {
     sendResponse(res, {
@@ -36,7 +35,7 @@ const getAllBooking = catchAsync(async (req, res) => {
 });
 
 const getUserBooking = catchAsync(async (req, res) => {
-  console.log(req.user);
+
   const result = await BookingServices.getUserBookingFromDB(req.user);
 
   if (result.length === 0) {

@@ -24,7 +24,6 @@ const createRoom = catchAsync(async (req, res) => {
 const getAllSlot = catchAsync(async (req, res) => {
   const result = await SlotServices.getAllSlotFromDB(req.query);
 
-  console.log(result, 're');
 
   if (result.length === 0) {
     sendResponse(res, {
