@@ -33,9 +33,9 @@ To run the project locally, follow these steps:
 * User can add their bookings and check their own bookings.
 * Admin can view all bookings, also can update and delete any single booking.
 
-- Technologies Used
+# Technologies Used
 
-* Backend: Node.js, Express.js, Mongoose
-* Authentication: JWT (JSON Web Token)
-* Environment Management: dotenv
-* Validation: Zod
+- Backend: Node.js, Express.js, Mongoose
+- Authentication: JWT (JSON Web Token)
+- Environment Management: dotenv
+- Validation: Zod
