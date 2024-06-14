@@ -24,7 +24,6 @@ const createRoom = catchAsync(async (req, res) => {
 const getAllSlot = catchAsync(async (req, res) => {
   const result = await SlotServices.getAllSlotFromDB(req.query);
 
-
   if (result.length === 0) {
     sendResponse(res, {
       statusCode: 404,

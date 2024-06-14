@@ -27,6 +27,8 @@ export const auth = (...requiredRole: TUserRole[]) => {
 
     const { role, email } = decoded;
 
+    console.log(decoded, 'decoded');
+
     const userData = await User.findOne({ email });
 
     // console.log(userData, 'userData');

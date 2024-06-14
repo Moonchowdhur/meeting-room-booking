@@ -2,7 +2,9 @@
 
 - Meeting Room Booking System
 
-# Live URL
+* Live URL
+
+- https://mongoose-master-assignment-jet.vercel.app/
 
 # How to run the project in locally
 
@@ -39,3 +41,4 @@ To run the project locally, follow these steps:
 - Authentication: JWT (JSON Web Token)
 - Environment Management: dotenv
 - Validation: Zod
+- Other Tools: ESLint, Prettier, TypeScript
