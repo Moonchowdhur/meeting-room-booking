@@ -1,6 +1,6 @@
 # Project Name
 
-- Meeting Room Booking System
+- Meeting Room Booking System for Co-working spaces
 
 * Live URL
 
@@ -17,21 +17,17 @@ To run the project locally, follow these steps:
 # Features
 
 - User Registration and Login:
-
 * Users can register and login to the system using their email and password.
 
 - Room Management:
-
 * Admin can add, edit, and delete meeting rooms.
 * user can access all romms.
 
 - Booking Slots:
-
 * Admin can set available booking slots for each room.
 * User can book a room for a specific time slot.
 
 - Manage Bookings:
-
 * User can add their bookings and check their own bookings.
 * Admin can view all bookings, also can update and delete any single booking.
 
