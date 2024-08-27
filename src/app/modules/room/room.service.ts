@@ -9,7 +9,7 @@ const createRoomIntoDB = async (payload: TRoom) => {
 };
 
 const getAllRoomFromDB = async () => {
-  const result = MeetingRoom.find();
+  const result = MeetingRoom.find({ isDeleted: false });
   return result;
 };
 

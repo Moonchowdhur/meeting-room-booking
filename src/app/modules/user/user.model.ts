@@ -8,7 +8,14 @@ const userSchema = new Schema<TUser>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   phone: { type: String, required: true },
-  role: { type: String, enum: ['user', 'admin'], required: true },
+  // role: { type: String, enum: ['user', 'admin'], required: true }
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+    required: true,
+  },
+
   address: { type: String, required: true },
 });
 

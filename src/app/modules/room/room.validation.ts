@@ -1,7 +1,16 @@
-import {  z } from 'zod';
+import { z } from 'zod';
 
 const meetingRoomValidationSchema = z.object({
   body: z.object({
+    // image: z
+    //   .string()
+    //   .url('Image must be a valid URL')
+    //   .min(1, 'Image is required'),
+
+    image: z
+      .array(z.string().url('Each image must be a valid URL'))
+      .min(2, 'At least two image is required'),
+
     name: z.string().min(1, 'Name is required'),
     roomNo: z.number().min(1, 'Room number is required'),
     floorNo: z.number().min(0, 'Floor number is required'),
@@ -15,6 +24,10 @@ const meetingRoomValidationSchema = z.object({
 
 const updateMeetingRoomValidationSchema = z.object({
   body: z.object({
+    image: z
+      .array(z.string().url('Each image must be a valid URL'))
+      .min(2, 'At least one image is required')
+      .optional(),
     name: z.string().optional(),
     roomNo: z.number().optional(),
     floorNo: z.number().optional(),

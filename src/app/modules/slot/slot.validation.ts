@@ -48,6 +48,66 @@ const createSlotValidationSchema = z.object({
     ),
 });
 
+const updateSlotValidationSchema = z.object({
+  body: z
+    .object({
+      room: z
+        .string()
+        .regex(/^[0-9a-fA-F]{24}$/, 'Invalid room ID format')
+        .optional(),
+      date: z
+        .string()
+        .refine(
+          (val) => dateRegex.test(val) && !isNaN(new Date(val).getTime()),
+          {
+            message: 'Invalid date format, please use YYYY-MM-DD',
+          },
+        )
+        .optional(),
+      startTime: z
+        .string()
+        .refine(
+          (val) => {
+            return /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(val);
+          },
+          {
+            message: 'Invalid start time format',
+          },
+        )
+        .optional(),
+      endTime: z
+        .string()
+        .refine(
+          (val) => {
+            return /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(val);
+          },
+          {
+            message: 'Invalid end time format',
+          },
+        )
+        .optional(),
+    })
+    .refine(
+      (data) => {
+        // @ts-expect-error: startTime might be undefined
+
+        const [startHour, startMinute] = data.startTime.split(':').map(Number);
+        // @ts-expect-error: end might be undefined
+
+        const [endHour, endMinute] = data.endTime.split(':').map(Number);
+        return (
+          startHour < endHour ||
+          (startHour === endHour && startMinute < endMinute)
+        );
+      },
+      {
+        message: 'Start time must be before end time',
+        path: ['startTime'],
+      },
+    ),
+});
+
 export const slotValidation = {
   createSlotValidationSchema,
+  updateSlotValidationSchema,
 };

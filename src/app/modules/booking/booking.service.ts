@@ -23,7 +23,7 @@ const createBooking = async (
     }
 
     const isRoomDeleted = roomInfo?.isDeleted;
-   
+
     if (isRoomDeleted) {
       throw new appError(httpStatus.NOT_FOUND, 'Room is deleted!');
     }
@@ -51,7 +51,6 @@ const createBooking = async (
 
     const pricePerSlot = roomInfo.pricePerSlot;
     const totalAmount = slots.length * pricePerSlot;
-
 
     const booking = await Booking.create(
       [
@@ -111,7 +110,7 @@ const createBooking = async (
 };
 
 const getBookingFromDB = async () => {
-  const bookings = await Booking.find()
+  const bookings = await Booking.find({ isDeleted: false })
     .populate('room')
     .populate({
       path: 'user',
@@ -163,12 +162,14 @@ const getUserBookingFromDB = async (payload: JwtPayload) => {
   return populatedBookings;
 };
 
-const updateSingleBookingFromDB = async (id: string) => {
+const updateSingleBookingFromDB = async (id: string, isConfirmed: string) => {
   const isBookingExist = await Booking.findById(id);
 
   if (!isBookingExist) {
     throw new appError(httpStatus.NOT_FOUND, 'Booking not found');
   }
+
+  console.log(isConfirmed, id, 'id', 'isConfirmed');
 
   //checking isDeleted or not
   const isDeletedBooking = isBookingExist?.isDeleted;
@@ -179,7 +180,7 @@ const updateSingleBookingFromDB = async (id: string) => {
 
   const result = await Booking.findByIdAndUpdate(
     id,
-    { isConfirmed: 'confirmed' },
+    { isConfirmed: isConfirmed },
     {
       new: true,
       runValidators: true,

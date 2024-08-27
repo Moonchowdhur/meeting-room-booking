@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import appError from '../../errors/appError';
 import { MeetingRoom } from '../room/room.model';
@@ -104,8 +105,6 @@ const createSlotIntoDB = async (
       ],
     });
 
-    
-
     if (existingSlots.length > 0) {
       throw new appError(
         httpStatus.BAD_REQUEST,
@@ -138,12 +137,76 @@ const getAllSlotFromDB = async (query: Record<string, unknown>) => {
     queryObject.date = date;
   }
 
-
   const result = await Slot.find(queryObject).populate('room');
+  return result;
+};
+
+const updateSingleSlotFromDB = async (id: string, payload: any) => {
+  // Check if the slot exists
+  const isSlotExist = await Slot.findById(id);
+  console.log(isSlotExist, 'isSlotExist');
+  console.log(payload, 'payload');
+
+  if (!isSlotExist) {
+    throw new appError(httpStatus.NOT_FOUND, 'Slot not found');
+  }
+
+  // Check if the slot is already booked
+  if (isSlotExist?.isBooked === true) {
+    throw new appError(httpStatus.CONFLICT, 'Slot already booked');
+  }
+
+  const isRoomExists = await MeetingRoom.findById(payload?.room);
+
+  if (!isRoomExists) {
+    throw new appError(httpStatus.NOT_FOUND, 'Room not found');
+  }
+
+  const result = await Slot.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
+};
+
+const deleteSingleSlotFromDB = async (id: string) => {
+  //  slot exists
+  const isSlotExist = await Slot.findById(id);
+
+  if (!isSlotExist) {
+    throw new appError(httpStatus.NOT_FOUND, 'Slot not found');
+  }
+
+  // slot is already booked
+  if (isSlotExist?.isBooked) {
+    throw new appError(
+      httpStatus.CONFLICT,
+      "Slot already booked, can't delete",
+    );
+  }
+
+  const result = await Slot.findByIdAndDelete(id);
+
+  if (!result) {
+    throw new appError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      'Failed to delete slot',
+    );
+  }
+
+  return result;
+};
+
+const getSingleSlotFromDB = async (id: string) => {
+  const result = await Slot.findById(id);
   return result;
 };
 
 export const SlotServices = {
   createSlotIntoDB,
   getAllSlotFromDB,
+  updateSingleSlotFromDB,
+  deleteSingleSlotFromDB,
+  getSingleSlotFromDB,
 };

@@ -16,7 +16,6 @@ const createBooking = catchAsync(async (req, res) => {
 const getAllBooking = catchAsync(async (req, res) => {
   const result = await BookingServices.getBookingFromDB();
 
-
   if (result.length === 0) {
     sendResponse(res, {
       statusCode: 404,
@@ -35,7 +34,6 @@ const getAllBooking = catchAsync(async (req, res) => {
 });
 
 const getUserBooking = catchAsync(async (req, res) => {
-
   const result = await BookingServices.getUserBookingFromDB(req.user);
 
   if (result.length === 0) {
@@ -57,7 +55,13 @@ const getUserBooking = catchAsync(async (req, res) => {
 
 const updateSingleBooking = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await BookingServices.updateSingleBookingFromDB(id);
+  const { isConfirmed } = req.body;
+
+  console.log(req.body, 'reqbody');
+  const result = await BookingServices.updateSingleBookingFromDB(
+    id,
+    isConfirmed,
+  );
 
   sendResponse(res, {
     statusCode: 200,
