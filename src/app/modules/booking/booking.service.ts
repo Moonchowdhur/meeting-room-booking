@@ -162,6 +162,8 @@ const getUserBookingFromDB = async (payload: JwtPayload) => {
   return populatedBookings;
 };
 
+//update single e booking
+
 const updateSingleBookingFromDB = async (id: string, isConfirmed: string) => {
   const isBookingExist = await Booking.findById(id);
 
