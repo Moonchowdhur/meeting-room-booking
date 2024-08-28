@@ -43,6 +43,7 @@ const updateSingleRoomFromDB = async (id: string, payload: Partial<TRoom>) => {
   return result;
 };
 
+//delete
 const deleteSingleRoomFromDB = async (id: string) => {
   const isRoomExist = await MeetingRoom.findById(id);
 
