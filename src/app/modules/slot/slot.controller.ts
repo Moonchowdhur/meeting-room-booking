@@ -41,6 +41,26 @@ const getAllSlot = catchAsync(async (req, res) => {
   }
 });
 
+const getFullSlot = catchAsync(async (req, res) => {
+  const result = await SlotServices.getFullSlotFromDB();
+
+  if (result.length === 0) {
+    sendResponse(res, {
+      statusCode: 404,
+      sucess: false,
+      message: 'No Data Found',
+      data: [],
+    });
+  } else {
+    sendResponse(res, {
+      statusCode: 200,
+      sucess: true,
+      message: 'All slots retrieved successfully',
+      data: result,
+    });
+  }
+});
+
 const updateSingleslot = catchAsync(async (req, res) => {
   const { id } = req.params;
 
@@ -95,4 +115,5 @@ export const SlotControllers = {
   updateSingleslot,
   deleteSingleSlot,
   getSingleSlot,
+  getFullSlot,
 };

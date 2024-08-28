@@ -14,6 +14,9 @@ router.post(
 );
 
 router.get('/availability', SlotControllers.getAllSlot);
+
+router.get('/', SlotControllers.getFullSlot);
+
 router.get('/:id', SlotControllers.getSingleSlot);
 
 router.put(

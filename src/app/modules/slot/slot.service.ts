@@ -141,6 +141,31 @@ const getAllSlotFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+// const getAllSlotFromDB = async (query: Record<string, unknown>) => {
+//   const { roomId, date } = query;
+
+//   // Build the query object with the provided filters
+//   const queryObject: Record<string, unknown> = {
+//     isBooked: { $eq: false }, // Ensure only unbooked slots are returned
+//   };
+
+//   if (roomId) {
+//     queryObject.room = roomId;
+//   }
+//   if (date) {
+//     queryObject.date = date;
+//   }
+
+//   // Execute the query and populate the 'room' field
+//   const result = await Slot.find(queryObject).populate('room');
+//   return result;
+// };
+
+const getFullSlotFromDB = async () => {
+  const result = Slot.find();
+  return result;
+};
+
 const updateSingleSlotFromDB = async (id: string, payload: any) => {
   // Check if the slot exists
   const isSlotExist = await Slot.findById(id);
@@ -209,4 +234,5 @@ export const SlotServices = {
   updateSingleSlotFromDB,
   deleteSingleSlotFromDB,
   getSingleSlotFromDB,
+  getFullSlotFromDB,
 };

@@ -8,8 +8,18 @@ const createRoomIntoDB = async (payload: TRoom) => {
   return result;
 };
 
+// const getAllRoomFromDB = async () => {
+//   const result = MeetingRoom.find({ isDeleted: false });
+//   return result;
+// };
+
 const getAllRoomFromDB = async () => {
-  const result = MeetingRoom.find({ isDeleted: false });
+  const result = MeetingRoom.find();
+  return result;
+};
+
+const getAllTypeRoomFromDB = async () => {
+  const result = MeetingRoom.find({});
   return result;
 };
 
@@ -59,4 +69,5 @@ export const RoomServices = {
   getSingleRoomFromDB,
   updateSingleRoomFromDB,
   deleteSingleRoomFromDB,
+  getAllTypeRoomFromDB,
 };

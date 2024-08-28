@@ -33,6 +33,26 @@ const getAllRoom = catchAsync(async (req, res) => {
   }
 });
 
+const getAllTypeRoom = catchAsync(async (req, res) => {
+  const result = await RoomServices.getAllTypeRoomFromDB();
+
+  if (result.length === 0) {
+    sendResponse(res, {
+      statusCode: 404,
+      sucess: false,
+      message: 'No Data Found',
+      data: [],
+    });
+  } else {
+    sendResponse(res, {
+      statusCode: 200,
+      sucess: true,
+      message: 'all Rooms retrieved successfully',
+      data: result,
+    });
+  }
+});
+
 const getSingleRoom = catchAsync(async (req, res) => {
   const { id } = req.params;
 
@@ -85,4 +105,5 @@ export const RoomControllers = {
   getSingleRoom,
   updateSingleRoom,
   deleteSingleRoom,
+  getAllTypeRoom,
 };
