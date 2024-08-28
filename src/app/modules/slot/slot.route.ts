@@ -6,6 +6,8 @@ import { auth } from '../../middleware/auth';
 
 const router = express.Router();
 
+//slot create route
+
 router.post(
   '/',
   auth('admin'),
