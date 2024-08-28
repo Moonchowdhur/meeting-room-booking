@@ -5,7 +5,7 @@ import { RoomControllers } from './room.controller';
 import { auth } from '../../middleware/auth';
 
 const router = express.Router();
-
+//room create route
 router.post(
   '/',
   auth('admin'),
