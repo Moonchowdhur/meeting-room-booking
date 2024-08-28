@@ -8,11 +8,6 @@ const createRoomIntoDB = async (payload: TRoom) => {
   return result;
 };
 
-// const getAllRoomFromDB = async () => {
-//   const result = MeetingRoom.find({ isDeleted: false });
-//   return result;
-// };
-
 const getAllRoomFromDB = async () => {
   const result = MeetingRoom.find();
   return result;
