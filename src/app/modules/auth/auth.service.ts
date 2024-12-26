@@ -8,9 +8,8 @@ import config from '../../config';
 import { createToken } from './auth.utils';
 
 const loginUserFromDB = async (payload: TLoginUser) => {
- 
   const userData = await User.findOne({ email: payload?.email });
-  
+
   if (!userData) {
     throw new appError(httpStatus.NOT_FOUND, 'This user is not found');
   }
